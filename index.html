@@ -11,26 +11,28 @@
   <form>
     <div>
       <label for="email">E-mail</label>
-      <input type="text" id="email" name="email" required>
+      <input type="text" id="email" name="email">
+      <span class="error"><p id="email_error"></p></span>
     </div>
     <div>
       <label for="country">Country</label>
-      <input type="type" id="country" name="country" required>
+      <input type="text" id="country" name="country">
+      <span class="error"><p id="country_error"></p></span>
     </div>
     <div>
       <label for="zipcode">Zip Code</label>
-      <input type="number" id="zipcode" name="zipcode" minlength="5" maxlength="10" required>
+      <input type="number" id="zipcode" name="zipcode" minlength="5" maxlength="10">
     </div>
     <div>
       <label for="password">Password</label>
-      <input type="text" id="password" name="password" required>
+      <input type="text" id="password" name="password">
     </div>
     <div>
       <label for="confirm">Confirm Password</label>
-      <input type="text" id="confirm" name="confirm" required>
+      <input type="text" id="confirm" name="confirm">
     </div>
     <div>
-      <button typ="submit">Submit</button>
+      <button type='submit' id='submit'>Submit</button>
     </div>
   </form>
     <script src='form.js'></script>
