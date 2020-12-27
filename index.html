@@ -21,15 +21,18 @@
     </div>
     <div>
       <label for="zipcode">Zip Code</label>
-      <input type="number" id="zipcode" name="zipcode" minlength="5" maxlength="10">
+      <input type="text" id="zipcode" name="zipcode" minlength="5" maxlength="10">
+      <span class="error"><p id="zipcode_error"></p></span>
     </div>
     <div>
       <label for="password">Password</label>
       <input type="text" id="password" name="password">
+      <span class="error"><p id="password_error"></p></span>
     </div>
     <div>
       <label for="confirm">Confirm Password</label>
       <input type="text" id="confirm" name="confirm">
+      <span class="error"><p id="confirm_error"></p></span>
     </div>
     <div>
       <button type='submit' id='submit'>Submit</button>
