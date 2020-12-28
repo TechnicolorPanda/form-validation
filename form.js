@@ -1,43 +1,85 @@
-function getEmail() {
-  const email = document.getElementById('email');
-  email.addEventListener('input', () => {
-    validateEmail();
-  });
-}
+// creates error when an incorrect email addressed is typed
 
-function validateEmail() {
-  const email = document.getElementById('email').value;
-  const validEmail = (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
-  const emailTest = validEmail.test(email);
+function emailError(emailInput, emailTest) {
   const error = document.getElementById('email_error');
   if (emailTest) {
-    email.className = 'valid';
+    emailInput.className = 'valid';
     error.innerHTML = '';
   } else {
-    email.className = 'invalid';
+    emailInput.className = 'invalid';
     error.innerHTML = 'Please enter a valid e-mail address';
   }
 }
 
-function getCountry() {
-  const country = document.getElementById('country');
-  country.addEventListener('input', () => {
-    validateCountry();
+// creates test for a valid email
+
+function validateEmail(submit) {
+  const emailInput = document.getElementById('email').value;
+  const validEmail = (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+  const emailTest = validEmail.test(emailInput);
+  if (submit === false) {
+    emailError(emailInput, emailTest);
+  } else {
+    submitError();
+  }
+}
+
+// reviews email for validity when typed
+
+function getEmail() {
+  const email = document.getElementById('email');
+
+  // designates that form has not yet been submitted when printing an error
+  const submit = false;
+
+  email.addEventListener('input', () => {
+    validateEmail(submit);
   });
 }
 
-function validateCountry() {
-  const country = document.getElementById('country').value;
-  // TODO: add length requirement
-  const validCountry = (/^[a-zA-Z0-9.&'_`-]*$/);
+// displays error upon incorrect input
+
+function countryError(countryInput, countryTest) {
   const error = document.getElementById('country_error');
-  if (validCountry === true) {
-    country.className = 'valid';
+  if (countryTest) {
+    countryInput.className = 'valid';
     error.innerHTML = '';
   } else {
-    country.className = 'invalid';
+    countryInput.className = 'invalid';
     error.innerHTML = 'Please enter a country name';
   }
+}
+
+// validates correct country name input
+
+function validateCountry(submit) {
+  const countryInput = document.getElementById('country').value;
+  const error = document.getElementById('country_error');
+  if (submit === false) {
+    if (countryInput.length >= 2 && country.length <= 74) {
+      const validCountry = (/^[a-zA-Z0-9.&'_`-]*$/);
+      const countryTest = validCountry.test(country); 
+      countryError(countryInput, countryTest)
+    } else {
+      countryInput.className = 'invalid';
+      error.innerHTML = 'Please enter a name between 2 and 74 characters';
+    }
+  } else {
+    submitError();
+  }
+}
+
+// registers country information upon input
+
+function getCountry() {
+  const country = document.getElementById('country');
+
+  // designates that form has not yet been submitted when printing an error
+  const submit = false;
+
+  country.addEventListener('input', () => {
+    validateCountry(submit);
+  });
 }
 
 function getZipCode() {
@@ -49,15 +91,20 @@ function getZipCode() {
 
 function validateZipCode() {
   const zipCode = document.getElementById('zipcode').value;
-  const validZipCode = (/^[0-9-]*$/);
-  const zipCodeTest = validZipCode.test(zipCode);
   const error = document.getElementById('zipcode_error');
-  if (zipCodeTest) {
-    zipCode.className = 'valid';
-    error.innerHTML = '';
+  if (zipCode.length >= 5 && zipCode.length <= 10) {
+    const validZipCode = (/^[0-9-]*$/);
+    const zipCodeTest = validZipCode.test(zipCode);
+    if (zipCodeTest) {
+      zipCode.className = 'valid';
+      error.innerHTML = '';
+    } else {
+      zipCode.className = 'invalid';
+      error.innerHTML = 'Please enter a valid numeric zipcode.';
+    }
   } else {
     zipCode.className = 'invalid';
-    error.innerHTML = 'Please enter a valid numeric zipcode';
+    error.innerHTML = 'Please enter a zip code between 5 and 10 characters.'
   }
 }
 
@@ -102,7 +149,10 @@ function validateConfirm(password) {
   }
 }
 
+// TODO: correct erasure of error messages upon submission
+
 function selectSubmit() {
+  console.log('select submit');
   const submitButton = document.getElementById('submit');
   submitButton.addEventListener('click', () => {
     submitForm();
@@ -110,19 +160,14 @@ function selectSubmit() {
 }
 
 function submitForm() {
-  const email = document.getElementById('email').value;
-  const validEmail = (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
-  const emailTest = validEmail.test(email);
-  const error = document.getElementById('email_error');
+  const submit = true;
+  validateEmail(submit);
+  validateCountry(submit);
+}
 
-  // TODO: Create error upon incorrect submission
-  if (emailTest === false) {
-    email.className = 'valid';
-    error.textContent = 'Invalid email address';
-  } else {
-    email.className = 'valid';
-    error.textContent = '';
-  }
+function submitError() {
+  const error = document.getElementById('submit_error');
+  error.innerHTML = 'Please correct incomplete fields';
 }
 
 (function initializeValidation() {
