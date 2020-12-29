@@ -20,7 +20,7 @@ input:invalid {
   padding: 0;
 
   font-size: 80%;
-  color: black;
+  color: red;
   border-color: #900;
   border: 1px;
   border-radius: 0 0 5px 5px;
